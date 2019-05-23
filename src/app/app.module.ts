@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { WidgetContainerComponent } from './widget-container/widget-container.component';
 import {HttpClientModule} from '@angular/common/http';
 import {WidgetComponent} from './widget-container/widget/widget.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import {WidgetComponent} from './widget-container/widget/widget.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
