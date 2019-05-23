@@ -14,22 +14,22 @@ export class WidgetComponent implements OnInit {
   @Input() personId: number;
   @Input() personName: string;
 
-  ticketform: FormGroup;
+  ticketForm: FormGroup;
 
 
-  constructor(route: Router) { }
+  constructor(private route: Router) { }
 
   ngOnInit() {
-    this.ticketform = new FormGroup({
+    this.ticketForm = new FormGroup({
       description: new FormControl(),
       urgency: new FormControl()
     });
   }
 
   sendTicket() {
-    const ticktInfo = {
+    const ticktDetails = {
       ...this.ticketForm,
-      url: this.route,
+      url: this.route.url,
       personIdType: this.personIdType,
       personName: this.personName
     };
