@@ -1,10 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 declare var $: any;
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {WidgetService} from '../../services/widget.service';
-
+import Swal from 'sweetalert2';
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
 
 @Component({
   selector: 'app-widget',
@@ -12,6 +18,8 @@ import {WidgetService} from '../../services/widget.service';
   styleUrls: ['./widget.component.css']
 })
 export class WidgetComponent implements OnInit {
+
+  @ViewChild('content') public modal;
 
   @Input() freshServiceApiKey: string;
   @Input() personIdType: string;
@@ -38,7 +46,7 @@ export class WidgetComponent implements OnInit {
     });
   }
 
-  saveTicket() {
+  saveTicket(modal: any) {
     const ticketData = {
       ...this.ticketForm.value,
       urgency: +this.ticketForm.value.urgency
@@ -52,6 +60,13 @@ export class WidgetComponent implements OnInit {
       ticketPrefix: this.ticketPrefix,
       url: this.route.url
     }).then((result) => {
+      modal.close();
+      Swal.fire({
+        type: 'success',
+        title: 'Ticket Saved',
+        text: 'Ticket Number: ' + result,
+        showConfirmButton: true,
+      });
       console.log(result);
     }).catch((error) => {
       console.log(error);

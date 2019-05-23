@@ -10,16 +10,16 @@ export class WidgetService {
   }
 
   saveTicket(data: WidgetData) {
-    console.log(data);
-    return axios({
-      method: 'POST',
-      url: 'https://cordantgroup-servicedesk.freshservice.com/helpdesk/tickets.json',
-      auth: {
-        username: 'DDPCF5z9nYoH7uGXtuWU',
-        password: 'dummy'
-      },
-      data: {
-        'helpdesk_ticket': {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'POST',
+        url: 'https://cordantgroup-servicedesk.freshservice.com/helpdesk/tickets.json',
+        auth: {
+          username: 'DDPCF5z9nYoH7uGXtuWU',
+          password: 'dummy'
+        },
+        data: {
+          'helpdesk_ticket': {
             'description': data.ticketData.description,
             'subject': data.ticketPrefix ? data.ticketPrefix + ':' + data.url : data.url  ,
             'email': data.personName,
@@ -27,12 +27,14 @@ export class WidgetService {
             'ticket_type': 'Incident',
             'status': 2,
             'source': 1
+          }
         }
-      }
-    }).then((result) => {
-      console.log(result.data);
-    }).catch((error) => {
-      console.log(error);
+      }).then((result) => {
+        resolve(result.data ? result.data.item.helpdesk_ticket.id : 'ticket id not found');
+        return result.data;
+      }).catch((error) => {
+        reject(error);
+      });
     });
   }
 
