@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-widget-container',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widget-container.component.css']
 })
 export class WidgetContainerComponent implements OnInit {
+
+  freshServiceApiKey = 'DDPCF5z9nYoH7uGXtuWU';
+  personIdType: 'Type';
+  personId: 123456;
+  personName: 'Test Name';
 
   constructor() { }
 

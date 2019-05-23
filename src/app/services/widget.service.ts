@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {WidgetData} from '../modals/widget.model';
 
 @Injectable()
 export class WidgetService {
 
   constructor(private http: HttpClient) {
+  }
+
+  saveTicket(data: WidgetData) {
+    
   }
 
   saveClick(click) {

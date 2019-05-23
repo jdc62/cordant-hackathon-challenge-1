@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 declare var $: any;
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {WidgetService} from '../../services/widget.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class WidgetComponent implements OnInit {
   urgecy = ['urgent', 'high', 'medium', 'low'];
 
 
-  constructor(private route: Router, private modalService: NgbModal) { }
+  constructor(private route: Router, private modalService: NgbModal, private widgetService: WidgetService) { }
 
   ngOnInit() {
     this.ticketForm = new FormGroup({
@@ -32,14 +33,19 @@ export class WidgetComponent implements OnInit {
     });
   }
 
-  sendTicket() {
-    console.log(this.ticketForm.value);
-    // const ticktDetails = {
-    //   ...this.ticketForm,
-    //   url: this.route.url,
-    //   personIdType: this.personIdType,
-    //   personName: this.personName
-    // };
+  saveTicket() {
+    const ticketData = this.ticketForm.value;
+    this.widgetService.saveTicket({
+      freshServiceApiKey: this.freshServiceApiKey,
+      personIdType: this.personIdType,
+      personId: this.personId,
+      personName: this.personName,
+      ticketData: ticketData
+  }).then((data) => {
+      console.log(data);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   open(content) {
