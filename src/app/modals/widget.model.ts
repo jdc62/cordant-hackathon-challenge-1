@@ -6,6 +6,7 @@ export interface WidgetData {
   ticketData: TicketData;
   ticketPrefix: string;
   url: string;
+  file: File;
 }
 
 export class TicketData {

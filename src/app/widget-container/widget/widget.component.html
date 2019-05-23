@@ -15,6 +15,7 @@
       <textarea class="form-control" rows="5" id="comment" formControlName="description"></textarea>
     </form>
   </div>
+  <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpeg">
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="saveTicket(modal)">Save</button>
   </div>

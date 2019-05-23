@@ -28,6 +28,7 @@ export class WidgetComponent implements OnInit {
   @Input() ticketPrefix: string;
   ticketForm: FormGroup;
   closeResult: string;
+  file;
 
   urgency = [
     {name: 'Urgent', id: 4},
@@ -58,7 +59,8 @@ export class WidgetComponent implements OnInit {
       personName: this.personName,
       ticketData: ticketData,
       ticketPrefix: this.ticketPrefix,
-      url: this.route.url
+      url: this.route.url,
+      file: this.file
     }).then((result) => {
       modal.close();
       Swal.fire({
@@ -88,6 +90,14 @@ export class WidgetComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return  `with: ${reason}`;
+    }
+  }
+
+  fileChange(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      this.file = file;
     }
   }
 }
