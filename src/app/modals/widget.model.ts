@@ -4,9 +4,11 @@ export interface WidgetData {
   personId: number;
   personName: string;
   ticketData: TicketData;
+  ticketPrefix: string;
+  url: string;
 }
 
 export class TicketData {
-  urgency: string;
+  urgency: number;
   description: string;
 }

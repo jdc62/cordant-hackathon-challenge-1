@@ -17,11 +17,16 @@ export class WidgetComponent implements OnInit {
   @Input() personIdType: string;
   @Input() personId: number;
   @Input() personName: string;
-
+  @Input() ticketPrefix: string;
   ticketForm: FormGroup;
   closeResult: string;
 
-  urgecy = ['urgent', 'high', 'medium', 'low'];
+  urgency = [
+    {name: 'Urgent', id: 4},
+    {name: 'High', id: 3},
+    {name: 'Medium', id: 2},
+    {name: 'Low', id: 1},
+    ];
 
 
   constructor(private route: Router, private modalService: NgbModal, private widgetService: WidgetService) { }
@@ -34,15 +39,20 @@ export class WidgetComponent implements OnInit {
   }
 
   saveTicket() {
-    const ticketData = this.ticketForm.value;
+    const ticketData = {
+      ...this.ticketForm.value,
+      urgency: +this.ticketForm.value.urgency
+    };
     this.widgetService.saveTicket({
       freshServiceApiKey: this.freshServiceApiKey,
       personIdType: this.personIdType,
       personId: this.personId,
       personName: this.personName,
-      ticketData: ticketData
-  }).then((data) => {
-      console.log(data);
+      ticketData: ticketData,
+      ticketPrefix: this.ticketPrefix,
+      url: this.route.url
+    }).then((result) => {
+      console.log(result);
     }).catch((error) => {
       console.log(error);
     });

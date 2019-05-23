@@ -9,7 +9,7 @@
     <form [formGroup]="ticketForm">
       <label for="urgency">Priority</label>
       <select class="form-control" id="urgency" formControlName="urgency">
-        <option *ngFor="let urgecy of urgecy">{{urgecy}}</option>
+        <option *ngFor="let urgency of urgency" [value]="urgency.id">{{urgency.name}}</option>
       </select>
       <label for="comment">Description:</label>
       <textarea class="form-control" rows="5" id="comment" formControlName="description"></textarea>
